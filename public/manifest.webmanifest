@@ -1,0 +1,15 @@
+{
+  "name": "Neumáticos IA",
+  "short_name": "Neumáticos",
+  "description": "Asistente por voz para talleres: medidas, stock en vivo y pedidos por WhatsApp.",
+  "lang": "es",
+  "start_url": "/app",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#121416",
+  "theme_color": "#121416",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
