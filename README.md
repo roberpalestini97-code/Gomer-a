@@ -10,13 +10,13 @@ Asistente por voz para talleres. Inspirado en el caso de «Paco el mecánico» d
 
 ## Stack
 
-Next.js 15 (App Router) · TypeScript · Tailwind v4 · Supabase (Postgres, Auth, Realtime, RLS) · Claude API (`@anthropic-ai/sdk`, tool use con streaming) · Web Speech API · Vitest · Playwright.
+Next.js 15 (App Router) · TypeScript · Tailwind v4 · Supabase (Postgres, Auth, Realtime, RLS) · IA vía API compatible con OpenAI (por defecto NVIDIA: `openai/gpt-oss-20b`, con respaldo automático a `nvidia/nemotron-3-super-120b-a12b`; tool use con streaming) · Web Speech API · Vitest · Playwright.
 
 ## Puesta en marcha
 
 1. **Supabase**: crea un proyecto en [supabase.com](https://supabase.com) y ejecuta, en orden, los SQL de `supabase/migrations/` en el *SQL Editor* (o `npx supabase db push` con la CLI enlazada).
    - *Authentication → URL Configuration*: añade `https://TU-DOMINIO/auth/callback` (y `http://localhost:3000/auth/callback`) a las *Redirect URLs*.
-2. **Variables**: copia `.env.example` a `.env.local` y rellena `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` y `ANTHROPIC_API_KEY`.
+2. **Variables**: copia `.env.example` a `.env.local` y rellena `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` y `NVIDIA_API_KEY` (créala en [build.nvidia.com](https://build.nvidia.com)).
 3. **Arranque**:
    ```bash
    npm install
@@ -27,7 +27,7 @@ Next.js 15 (App Router) · TypeScript · Tailwind v4 · Supabase (Postgres, Auth
 ## Despliegue en Vercel
 
 1. Importa este repositorio en [vercel.com/new](https://vercel.com/new).
-2. Añade las variables de entorno de `.env.example` (como mínimo las de Supabase, `ANTHROPIC_API_KEY` y `NEXT_PUBLIC_SITE_URL` con tu dominio).
+2. Añade las variables de entorno de `.env.example` (como mínimo las de Supabase, `NVIDIA_API_KEY` y `NEXT_PUBLIC_SITE_URL` con tu dominio).
 3. Despliega y añade `https://TU-DOMINIO/auth/callback` en las Redirect URLs de Supabase.
 
 ## Scripts
@@ -43,7 +43,7 @@ Next.js 15 (App Router) · TypeScript · Tailwind v4 · Supabase (Postgres, Auth
 
 ```
 supabase/migrations/   esquema, RLS, RPCs (crear taller, invitaciones, stock atómico, catálogo demo) y medidas por vehículo
-src/lib/ai/            prompt, herramientas y bucle de tool use con Claude
+src/lib/ai/            prompt, herramientas y bucle de tool use (API compatible con OpenAI)
 src/app/api/assistant  endpoint NDJSON en streaming (auth, límite de uso, registro en historial)
 src/app/app/           asistente, stock, catálogo, proveedores, equipo, historial
 src/components/        UI cliente (chat por voz, tarjetas, stock en vivo, importador)
@@ -51,6 +51,7 @@ src/components/        UI cliente (chat por voz, tarjetas, stock en vivo, import
 
 ## Notas
 
+- Si el modelo principal no empieza a responder en 20 s (o devuelve 429/5xx), el asistente pasa al modelo de respaldo.
 - El asistente nunca inventa precios ni stock: solo usa lo que devuelven sus herramientas sobre tu base de datos, con la sesión del usuario (RLS).
 - Las medidas por vehículo son orientativas; el asistente pide confirmarlas en el flanco del neumático. Puedes añadir las tuyas en la tabla `vehicle_fitments` con tu `workshop_id`.
 - El dictado por voz usa el reconocimiento del navegador (Chrome/Edge/Safari). Si no está disponible se puede escribir.

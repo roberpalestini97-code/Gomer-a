@@ -1,4 +1,3 @@
-import type Anthropic from "@anthropic-ai/sdk";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import { formatTireSize, normalizeText } from "@/lib/tires";
@@ -12,19 +11,23 @@ export interface ToolContext {
   recommended: RecommendedTire[];
 }
 
+/** Acepta números que el modelo envía como texto ("17"). */
+const num = <T extends z.ZodTypeAny>(schema: T) =>
+  z.preprocess((v) => (v === "" || v == null ? undefined : typeof v === "string" ? Number(v.replace(",", ".")) : v), schema);
+
 const LookupVehicleInput = z.object({
   make: z.string().trim().min(1).max(60),
   model: z.string().trim().min(1).max(60),
-  year: z.number().int().min(1950).max(2100).optional(),
+  year: num(z.number().int().min(1950).max(2100).optional()),
 });
 
 const SearchTiresInput = z.object({
-  width: z.number().int().min(100).max(400),
-  aspect_ratio: z.number().int().min(20).max(100),
-  rim: z.number().min(10).max(26),
+  width: num(z.number().int().min(100).max(400)),
+  aspect_ratio: num(z.number().int().min(20).max(100)),
+  rim: num(z.number().min(10).max(26)),
   season: z.enum(["verano", "invierno", "all-season"]).optional(),
   brand: z.string().trim().max(60).optional(),
-  max_price: z.number().min(0).optional(),
+  max_price: num(z.number().min(0).optional()),
   in_stock_only: z.boolean().optional(),
 });
 
@@ -32,14 +35,23 @@ const RecommendInput = z.object({
   tire_ids: z.array(z.string().uuid()).min(1).max(6),
 });
 
-export const TOOLS: Anthropic.Tool[] = [
-  {
-    name: "lookup_vehicle_tire_size",
-    description:
-      "Devuelve las medidas de neumático homologadas habituales para un vehículo (marca, modelo y opcionalmente año). " +
-      "Úsala cuando el mecánico diga el coche pero no la medida. Puede devolver varias medidas según versión/llanta.",
-    eager_input_streaming: true,
-    input_schema: {
+/** Definición de una herramienta en formato OpenAI (lo aceptan NVIDIA NIM y la mayoría de APIs compatibles). */
+export interface ToolDefinition {
+  type: "function";
+  function: { name: string; description: string; parameters: Record<string, unknown> };
+}
+
+const tool = (name: string, description: string, parameters: Record<string, unknown>): ToolDefinition => ({
+  type: "function",
+  function: { name, description, parameters },
+});
+
+export const TOOLS: ToolDefinition[] = [
+  tool(
+    "lookup_vehicle_tire_size",
+    "Devuelve las medidas de neumático homologadas habituales para un vehículo (marca, modelo y opcionalmente año). " +
+    "Úsala cuando el mecánico diga el coche pero no la medida. Puede devolver varias medidas según versión/llanta.",
+    {
       type: "object",
       properties: {
         make: { type: "string", description: "Marca, p. ej. Audi" },
@@ -48,14 +60,12 @@ export const TOOLS: Anthropic.Tool[] = [
       },
       required: ["make", "model"],
     },
-  },
-  {
-    name: "search_tires",
-    description:
-      "Busca en el catálogo del taller los neumáticos de una medida concreta, con precio, stock actual y proveedor. " +
-      "Devuelve como máximo 15 resultados ordenados por stock disponible y precio.",
-    eager_input_streaming: true,
-    input_schema: {
+  ),
+  tool(
+    "search_tires",
+    "Busca en el catálogo del taller los neumáticos de una medida concreta, con precio, stock actual y proveedor. " +
+    "Devuelve como máximo 15 resultados ordenados por stock disponible y precio.",
+    {
       type: "object",
       properties: {
         width: { type: "integer", description: "Ancho en mm, p. ej. 225" },
@@ -68,22 +78,20 @@ export const TOOLS: Anthropic.Tool[] = [
       },
       required: ["width", "aspect_ratio", "rim"],
     },
-  },
-  {
-    name: "recommend_tires",
-    description:
-      "Marca los neumáticos (ids devueltos por search_tires) que recomiendas al mecánico, del más al menos recomendable. " +
-      "La app los mostrará como tarjetas con stock en vivo y botón de pedido por WhatsApp si no hay stock. " +
-      "Llámala siempre que hayas encontrado neumáticos adecuados, antes de tu respuesta final.",
-    eager_input_streaming: true,
-    input_schema: {
+  ),
+  tool(
+    "recommend_tires",
+    "Marca los neumáticos (ids devueltos por search_tires) que recomiendas al mecánico, del más al menos recomendable. " +
+    "La app los mostrará como tarjetas con stock en vivo y botón de pedido por WhatsApp si no hay stock. " +
+    "Llámala siempre que hayas encontrado neumáticos adecuados, antes de tu respuesta final.",
+    {
       type: "object",
       properties: {
         tire_ids: { type: "array", items: { type: "string" }, description: "Ids de neumáticos, máximo 6" },
       },
       required: ["tire_ids"],
     },
-  },
+  ),
 ];
 
 const TIRE_COLUMNS =
@@ -182,44 +190,57 @@ async function recommendTires(ctx: ToolContext, input: z.infer<typeof RecommendI
   return { shown: ordered.length, missing: input.tire_ids.length - ordered.length };
 }
 
-/** Ejecuta una herramienta validando su entrada. Nunca lanza: devuelve un tool_result. */
-export async function runTool(
-  ctx: ToolContext,
-  block: Anthropic.ToolUseBlock,
-): Promise<Anthropic.ToolResultBlockParam> {
-  const fail = (message: string): Anthropic.ToolResultBlockParam => ({
-    type: "tool_result",
-    tool_use_id: block.id,
-    is_error: true,
-    content: message,
+/** Llamada a herramienta tal como la devuelve el modelo (argumentos en JSON). */
+export interface ToolCall {
+  id: string;
+  name: string;
+  arguments: string;
+}
+
+/** Mensaje de resultado que se devuelve al modelo. */
+export interface ToolResultMessage {
+  role: "tool";
+  tool_call_id: string;
+  content: string;
+}
+
+/** Ejecuta una herramienta validando su entrada. Nunca lanza: devuelve el resultado o el error como texto. */
+export async function runTool(ctx: ToolContext, call: ToolCall): Promise<ToolResultMessage> {
+  const reply = (content: unknown): ToolResultMessage => ({
+    role: "tool",
+    tool_call_id: call.id,
+    content: typeof content === "string" ? content : JSON.stringify(content),
   });
+  const fail = (message: string) => reply({ error: message });
+
+  let input: unknown;
   try {
-    let result: unknown;
-    switch (block.name) {
+    input = call.arguments.trim() ? JSON.parse(call.arguments) : {};
+  } catch {
+    return fail("Los argumentos no son JSON válido. Vuelve a llamar a la herramienta.");
+  }
+
+  try {
+    switch (call.name) {
       case "lookup_vehicle_tire_size": {
-        const parsed = LookupVehicleInput.safeParse(block.input);
+        const parsed = LookupVehicleInput.safeParse(input);
         if (!parsed.success) return fail(`Entrada inválida: ${parsed.error.issues[0].message}`);
-        result = await lookupVehicle(ctx, parsed.data);
-        break;
+        return reply(await lookupVehicle(ctx, parsed.data));
       }
       case "search_tires": {
-        const parsed = SearchTiresInput.safeParse(block.input);
+        const parsed = SearchTiresInput.safeParse(input);
         if (!parsed.success) return fail(`Entrada inválida: ${parsed.error.issues[0].message}`);
-        result = await searchTires(ctx, parsed.data);
-        break;
+        return reply(await searchTires(ctx, parsed.data));
       }
       case "recommend_tires": {
-        const parsed = RecommendInput.safeParse(block.input);
+        const parsed = RecommendInput.safeParse(input);
         if (!parsed.success) return fail(`Entrada inválida: ${parsed.error.issues[0].message}`);
-        result = await recommendTires(ctx, parsed.data);
-        break;
+        return reply(await recommendTires(ctx, parsed.data));
       }
       default:
-        return fail(`Herramienta desconocida: ${block.name}`);
+        return fail(`Herramienta desconocida: ${call.name}`);
     }
-    return { type: "tool_result", tool_use_id: block.id, content: JSON.stringify(result) };
   } catch (err) {
     return fail(err instanceof Error ? err.message : "Error ejecutando la herramienta");
   }
 }
-

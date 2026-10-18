@@ -1,6 +1,5 @@
-import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
-import { runAssistant } from "@/lib/ai/assistant";
+import { LlmError, runAssistant } from "@/lib/ai/assistant";
 import { checkRateLimit } from "@/lib/rate-limit";
 import { createClient } from "@/lib/supabase/server";
 import type { AssistantEvent } from "@/lib/types";
@@ -44,7 +43,9 @@ export async function POST(request: Request) {
   const limited = await checkRateLimit(supabase, user.id);
   if (limited) return json(429, limited);
 
-  if (!process.env.ANTHROPIC_API_KEY) return json(503, "El asistente no está configurado (falta ANTHROPIC_API_KEY).");
+  if (!process.env.LLM_API_KEY && !process.env.NVIDIA_API_KEY) {
+    return json(503, "El asistente no está configurado (falta NVIDIA_API_KEY).");
+  }
 
   const query = messages[messages.length - 1].content;
   const encoder = new TextEncoder();
@@ -93,9 +94,11 @@ export async function POST(request: Request) {
 }
 
 function friendlyError(err: unknown): string {
-  if (err instanceof Anthropic.RateLimitError) return "El asistente está saturado. Prueba de nuevo en unos segundos.";
-  if (err instanceof Anthropic.AuthenticationError) return "La clave de la IA no es válida. Avisa al administrador.";
-  if (err instanceof Anthropic.APIConnectionError) return "No hay conexión con el asistente. Revisa la cobertura.";
-  if (err instanceof Anthropic.APIError) return "El asistente ha fallado. Prueba de nuevo.";
+  if (err instanceof LlmError) {
+    if (err.status === 401 || err.status === 403) return "La clave de la IA no es válida. Avisa al administrador.";
+    if (err.status === 429) return "El asistente está saturado. Prueba de nuevo en unos segundos.";
+    if (err.status == null) return "El asistente tarda demasiado en responder. Prueba de nuevo.";
+    return "El asistente ha fallado. Prueba de nuevo.";
+  }
   return "Algo ha ido mal. Prueba de nuevo.";
 }
