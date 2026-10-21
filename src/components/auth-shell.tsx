@@ -5,7 +5,7 @@ export function AuthShell({ title, subtitle, children }: { title: string; subtit
   return (
     <main className="mx-auto flex min-h-dvh max-w-md flex-col justify-center px-4 py-10">
       <Link href="/" className="mb-6 self-start">
-        <Logo />
+        <Logo className="h-10 w-auto" />
       </Link>
       <div className="card p-6">
         <h1 className="font-display text-3xl font-extrabold uppercase">{title}</h1>

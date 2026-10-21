@@ -10,6 +10,14 @@
   --line: #d9d5cd;
   --accent: #f2a900;
   --accent-ink: #1a1400;
+  /* Marca GomerIA.app */
+  --brand: #ffd400;
+  --brand-ink: #111111;
+  --logo-mark: #111111;
+  --logo-word: #111111;
+  --logo-accent: #111111;
+  --logo-pill: #111111;
+  --logo-pill-text: #ffd400;
   --ok: #1f8a4c;
   --warn: #b85c00;
   --danger: #c62828;
@@ -26,10 +34,32 @@
     --line: #33383f;
     --accent: #ffb81c;
     --accent-ink: #1a1400;
+    --logo-mark: #ffd400;
+    --logo-word: #ffffff;
+    --logo-accent: #ffd400;
+    --logo-pill: #ffd400;
+    --logo-pill-text: #111111;
     --ok: #3ccf7d;
     --warn: #ff9f43;
     --danger: #ff6b6b;
     --whatsapp: #2bd06b;
+  }
+}
+
+/* El isotipo alterna entre color y monocromo según el tema. */
+.logo-mark-color {
+  display: none;
+}
+.logo-mark-mono {
+  display: inline;
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo-mark-color {
+    display: inline;
+  }
+  .logo-mark-mono {
+    display: none;
   }
 }
 
@@ -42,6 +72,8 @@
   --color-line: var(--line);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
+  --color-brand: var(--brand);
+  --color-brand-ink: var(--brand-ink);
   --color-ok: var(--ok);
   --color-warn: var(--warn);
   --color-danger: var(--danger);

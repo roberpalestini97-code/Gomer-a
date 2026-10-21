@@ -1,16 +1,257 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="112" fill="#17191c"/>
-  <circle cx="256" cy="256" r="168" fill="none" stroke="#ffb81c" stroke-width="56"/>
-  <g stroke="#17191c" stroke-width="14">
-    <line x1="256" y1="60" x2="256" y2="132"/>
-    <line x1="256" y1="380" x2="256" y2="452"/>
-    <line x1="60" y1="256" x2="132" y2="256"/>
-    <line x1="380" y1="256" x2="452" y2="256"/>
-    <line x1="117" y1="117" x2="168" y2="168"/>
-    <line x1="344" y1="344" x2="395" y2="395"/>
-    <line x1="395" y1="117" x2="344" y2="168"/>
-    <line x1="168" y1="344" x2="117" y2="395"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="GomerIA.app"><rect width="512" height="512" rx="116" fill="#111111"/><g transform="translate(256 256) scale(3.1) translate(-90.125 -80.000)"><defs>
+    <linearGradient id="g-front" x1="0" y1="24" x2="0" y2="136" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFDE00"/>
+      <stop offset=".5" stop-color="#FFDA00"/>
+      <stop offset="1" stop-color="#FFD600"/>
+    </linearGradient>
+    <radialGradient id="bevel-left" cx="86" cy="76" r="48" gradientUnits="userSpaceOnUse" gradientTransform="translate(0,30.4) scale(1,0.6)">
+      <stop offset="0" stop-color="#A04800" stop-opacity=".82"/>
+      <stop offset=".5" stop-color="#A04800" stop-opacity=".68"/>
+      <stop offset=".58" stop-color="#A85000" stop-opacity=".6"/>
+      <stop offset=".63" stop-color="#A85000" stop-opacity=".5"/>
+      <stop offset=".68" stop-color="#B04800" stop-opacity=".38"/>
+      <stop offset=".76" stop-color="#B04800" stop-opacity=".3"/>
+      <stop offset=".88" stop-color="#C06000" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#FFD400" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="band-fade" x1="0" y1="50" x2="0" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000"/>
+      <stop offset=".18" stop-color="#fff" stop-opacity=".7"/>
+      <stop offset=".4" stop-color="#fff"/>
+      <stop offset=".62" stop-color="#fff"/>
+      <stop offset=".78" stop-color="#fff" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#000"/>
+    </linearGradient>
+    <mask id="band-mask"><rect x="30" y="50" width="60" height="60" fill="url(#band-fade)"/></mask>
+    <linearGradient id="bevel-bottom" x1="78" y1="0" x2="111" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#A65E00" stop-opacity="0"/>
+      <stop offset=".2" stop-color="#A65E00" stop-opacity=".04"/>
+      <stop offset=".4" stop-color="#A65E00" stop-opacity=".12"/>
+      <stop offset=".6" stop-color="#A03C00" stop-opacity=".34"/>
+      <stop offset=".7" stop-color="#983800" stop-opacity=".55"/>
+      <stop offset=".8" stop-color="#8C3A00" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#8C2C00" stop-opacity=".8"/>
+    </linearGradient>
+    <linearGradient id="bottom-fade" x1="0" y1="118" x2="0" y2="136" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".45" stop-color="#fff" stop-opacity=".9"/>
+      <stop offset=".75" stop-color="#fff" stop-opacity=".6"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".25"/>
+    </linearGradient>
+    <linearGradient id="bevel-top" x1="74" y1="0" x2="114" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8C3C00" stop-opacity=".55"/>
+      <stop offset=".4" stop-color="#A04800" stop-opacity=".35"/>
+      <stop offset=".75" stop-color="#B05000" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#C06000" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="top-fade" x1="0" y1="54" x2="0" y2="68" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".35" stop-color="#fff" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="top-mask"><rect x="68" y="52" width="52" height="18" fill="url(#top-fade)"/></mask>
+    <linearGradient id="seam" x1="0" y1="102" x2="0" y2="113" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2A1200" stop-opacity=".38"/>
+      <stop offset=".45" stop-color="#2A1200" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#2A1200" stop-opacity="0"/>
+    </linearGradient>
+    <mask id="bottom-mask"><rect x="60" y="96" width="60" height="42" fill="url(#bottom-fade)"/></mask>
+    <linearGradient id="flame" x1="90" y1="79" x2="139" y2="132" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F7C900"/>
+      <stop offset=".5" stop-color="#F8CE00"/>
+      <stop offset="1" stop-color="#FFE200"/>
+    </linearGradient>
+    <linearGradient id="star" x1="126" y1="55" x2="136" y2="96" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE400"/>
+      <stop offset=".45" stop-color="#FFD800"/>
+      <stop offset="1" stop-color="#FFC800"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.4"/>
+    </filter>
+    <filter id="soft2" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="0.9"/>
+    </filter>
+    <filter id="flame-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="1.0" dy="1.4" stdDeviation="1.0" flood-color="#241200" flood-opacity=".38"/>
+    </filter>
+    <clipPath id="g-clip"><path d="M 74.5 26
+C 90.0 24.9 118.0 24.7 137.0 24.8
+C 138.8 24.9 139.3 26.4 139.3 29.2
+C 139.3 31.0 139.2 32.8 139.1 34.4
+C 134.2 40.2 123.8 50.2 115.9 54.6
+L 82.4 55.0
+C 78.8 55.1 75.4 57.0 73.0 59.4
+C 68.6 63.7 65.6 68.3 63.9 73.1
+C 62.4 77.1 62.4 81.2 63.2 85.4
+C 64.2 90.9 67.4 96.2 71.4 100.2
+C 73.0 102.8 76.0 104.5 79.0 105.2
+C 81.7 106.3 84.4 106.7 87.2 106.7
+L 99.0 106.7
+C 102.5 106.7 105.8 106.4 108.4 105.8
+C 109.4 105.5 110.0 104.8 110.1 103.9
+C 110.3 101.9 109.9 99.7 109.1 97.6
+C 107.9 94.8 105.8 92.3 103.2 90.4
+C 100.4 88.5 97.0 87.5 93.5 87.2
+C 91.4 87.1 89.4 87.0 88.1 86.8
+C 87.6 86.7 87.4 86.2 87.6 85.7
+C 89.2 83.4 91.8 81.7 94.9 80.7
+C 98.2 79.7 101.8 79.4 105.4 79.6
+C 109.2 79.8 113.0 80.7 116.2 82.3
+C 119.6 84.0 122.7 86.8 125.8 89.8
+C 129.8 93.6 133.8 97.8 137.8 101.3
+C 139.2 102.6 140.6 103.7 141.8 104.6
+C 142.4 105.0 142.5 105.6 142.1 106.2
+C 141.8 106.8 141.5 107.4 141.1 108.0
+C 140.5 111.0 121.8 128.8 109.5 134.5
+C 109.0 134.8 108.5 135.0 107.8 135.0
+C 104.5 135.2 99.0 135.2 92.0 135.2
+L 82.0 135.2
+C 76.6 135.1 71.4 134.1 66.5 132.4
+C 58.0 129.3 50.5 123.8 44.5 116.8
+C 38.4 109.7 35.0 101.5 34.0 92.3
+C 33.2 84.3 33.3 76.3 34.6 68.3
+C 36.0 59.3 39.1 51.0 44.0 44.0
+C 49.0 36.9 55.2 31.4 62.2 27.9
+C 66.0 26.4 70.3 26.0 74.5 26.0
+Z"/></clipPath>
+    <clipPath id="flame-clip"><path d="M 87.4 85.9
+C 88.7 83.5 91.2 81.7 94.2 80.7
+C 97.4 79.6 101.0 79.4 104.6 79.6
+C 108.8 79.9 112.6 80.8 115.9 82.4
+C 119.4 84.2 122.6 87.0 125.8 90.0
+C 129.8 93.8 133.8 97.9 137.8 101.4
+C 139.2 102.6 140.5 103.7 141.6 104.5
+C 142.3 105.0 142.4 105.6 142.0 106.3
+C 141.8 106.8 141.5 107.4 141.2 108.0
+C 140.4 111.0 124.0 128.4 109.6 134.3
+C 109.9 134.6 109.6 134.7 109.5 134.4
+L 109.6 113.0
+C 109.7 110.5 110.0 108.6 110.5 106.8
+C 110.8 105.3 110.9 104.0 110.8 102.9
+C 110.5 100.6 109.8 98.5 108.8 96.5
+C 107.4 93.9 105.2 91.8 102.5 90.2
+C 99.6 88.5 96.2 87.7 92.9 87.6
+C 91.0 87.5 89.2 87.5 88.1 87.3
+C 87.5 87.2 87.2 86.7 87.4 86.1
+Z"/></clipPath>
+  </defs>
+
+  <path d="M 74.5 26
+C 90.0 24.9 118.0 24.7 137.0 24.8
+C 138.8 24.9 139.3 26.4 139.3 29.2
+C 139.3 31.0 139.2 32.8 139.1 34.4
+C 134.2 40.2 123.8 50.2 115.9 54.6
+L 82.4 55.0
+C 78.8 55.1 75.4 57.0 73.0 59.4
+C 68.6 63.7 65.6 68.3 63.9 73.1
+C 62.4 77.1 62.4 81.2 63.2 85.4
+C 64.2 90.9 67.4 96.2 71.4 100.2
+C 73.0 102.8 76.0 104.5 79.0 105.2
+C 81.7 106.3 84.4 106.7 87.2 106.7
+L 99.0 106.7
+C 102.5 106.7 105.8 106.4 108.4 105.8
+C 109.4 105.5 110.0 104.8 110.1 103.9
+C 110.3 101.9 109.9 99.7 109.1 97.6
+C 107.9 94.8 105.8 92.3 103.2 90.4
+C 100.4 88.5 97.0 87.5 93.5 87.2
+C 91.4 87.1 89.4 87.0 88.1 86.8
+C 87.6 86.7 87.4 86.2 87.6 85.7
+C 89.2 83.4 91.8 81.7 94.9 80.7
+C 98.2 79.7 101.8 79.4 105.4 79.6
+C 109.2 79.8 113.0 80.7 116.2 82.3
+C 119.6 84.0 122.7 86.8 125.8 89.8
+C 129.8 93.6 133.8 97.8 137.8 101.3
+C 139.2 102.6 140.6 103.7 141.8 104.6
+C 142.4 105.0 142.5 105.6 142.1 106.2
+C 141.8 106.8 141.5 107.4 141.1 108.0
+C 140.5 111.0 121.8 128.8 109.5 134.5
+C 109.0 134.8 108.5 135.0 107.8 135.0
+C 104.5 135.2 99.0 135.2 92.0 135.2
+L 82.0 135.2
+C 76.6 135.1 71.4 134.1 66.5 132.4
+C 58.0 129.3 50.5 123.8 44.5 116.8
+C 38.4 109.7 35.0 101.5 34.0 92.3
+C 33.2 84.3 33.3 76.3 34.6 68.3
+C 36.0 59.3 39.1 51.0 44.0 44.0
+C 49.0 36.9 55.2 31.4 62.2 27.9
+C 66.0 26.4 70.3 26.0 74.5 26.0
+Z" fill="url(#g-front)"/>
+  <g clip-path="url(#g-clip)">
+    <path d="M 78.8 55.1
+C 70 45 58 38 48 42
+C 36 47 28 60 24 75
+C 21 88 25 100 34 108
+C 43 115 60 116 79 112
+L 79 105.2
+C 76.0 104.5 73.0 102.8 71.4 100.2
+C 67.4 96.2 64.2 90.9 63.2 85.4
+C 62.4 81.2 62.4 77.1 63.9 73.1
+C 65.6 68.3 68.6 63.7 73.0 59.4
+C 75.4 57.0 78.8 55.1 78.8 55.1
+Z" fill="url(#bevel-left)" mask="url(#band-mask)"/>
+    <path d="M 76.5 55.2
+C 88 54.7 103 54.5 116 54.6
+L 116 63.2
+C 104 62.8 91 62.6 82 63.6
+C 78.5 64.0 75.2 64.7 72.5 65.8
+Z" fill="url(#bevel-top)" mask="url(#top-mask)"/>
+    <g mask="url(#bottom-mask)">
+      <path d="M 64 96
+C 72 103 82 106 92 106.6
+C 101 106.8 108 105.6 110.8 104.2
+L 110.8 136.5
+L 93 136.5
+C 87 132 81 124 77 116
+C 72 108 67 102 64 96
+Z" fill="url(#bevel-bottom)"/>
+      <path d="M 64 96
+C 72 103 82 106 92 106.6
+C 101 106.8 108 105.6 110.8 104.2
+L 110.8 136.5
+L 93 136.5
+C 87 132 81 124 77 116
+C 72 108 67 102 64 96
+Z" fill="url(#seam)"/>
+    </g>
+    <path d="M 82 135.1 L 109 135.1" fill="none" stroke="#FFE45A" stroke-width="1.3" stroke-opacity=".55"/>
   </g>
-  <circle cx="256" cy="256" r="64" fill="#ffb81c"/>
-  <circle cx="256" cy="256" r="22" fill="#17191c"/>
-</svg>
+  <g clip-path="url(#g-clip)">
+    <g filter="url(#flame-shadow)"><path d="M 87.4 85.9
+C 88.7 83.5 91.2 81.7 94.2 80.7
+C 97.4 79.6 101.0 79.4 104.6 79.6
+C 108.8 79.9 112.6 80.8 115.9 82.4
+C 119.4 84.2 122.6 87.0 125.8 90.0
+C 129.8 93.8 133.8 97.9 137.8 101.4
+C 139.2 102.6 140.5 103.7 141.6 104.5
+C 142.3 105.0 142.4 105.6 142.0 106.3
+C 141.8 106.8 141.5 107.4 141.2 108.0
+C 140.4 111.0 124.0 128.4 109.6 134.3
+C 109.9 134.6 109.6 134.7 109.5 134.4
+L 109.6 113.0
+C 109.7 110.5 110.0 108.6 110.5 106.8
+C 110.8 105.3 110.9 104.0 110.8 102.9
+C 110.5 100.6 109.8 98.5 108.8 96.5
+C 107.4 93.9 105.2 91.8 102.5 90.2
+C 99.6 88.5 96.2 87.7 92.9 87.6
+C 91.0 87.5 89.2 87.5 88.1 87.3
+C 87.5 87.2 87.2 86.7 87.4 86.1
+Z" fill="url(#flame)"/></g>
+    <path d="M 110.3 104 L 110.3 126" fill="none" stroke="#7A3A00" stroke-width="2.2" stroke-opacity=".3"/>
+    <path d="M 88.2 84.9
+C 89.6 82.5 92.2 80.9 95.2 80.0
+C 98.4 79.1 101.8 78.9 105.3 79.1
+C 109.0 79.3 112.7 80.2 115.9 81.8
+C 119.2 83.5 122.4 86.2 125.5 89.3
+C 129.5 93.2 133.6 97.4 137.6 100.9" fill="none" stroke="#FFE96A" stroke-opacity=".3" stroke-width="1.0" stroke-linecap="round"/>
+  </g>
+  <path d="M 130.0 56.5
+C 128.5 61.5 126.5 65.5 124.0 68.5
+C 121.5 71.5 117.5 73.8 112.8 75.5
+C 117.5 77.2 121.5 79.5 124.0 82.5
+C 126.5 85.5 128.5 89.5 130.0 94.3
+C 131.5 89.5 133.5 85.5 136.0 82.5
+C 138.5 79.5 142.5 77.2 147.0 75.5
+C 142.5 73.8 138.5 71.5 136.0 68.5
+C 133.5 65.5 131.5 61.5 130.0 56.5
+Z" fill="url(#star)"/></g></svg>

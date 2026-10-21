@@ -99,7 +99,7 @@ export function TeamManager({
                     </button>
                     <a
                       className="btn-ghost px-3 py-1.5 text-xs"
-                      href={`https://wa.me/?text=${encodeURIComponent(`Únete al taller en Neumáticos IA: ${link(i.token)}`)}`}
+                      href={`https://wa.me/?text=${encodeURIComponent(`Únete al taller en GomerIA.app: ${link(i.token)}`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

@@ -13,7 +13,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <header className="sticky top-0 z-20 border-b border-line bg-bg/90 px-4 pt-[max(0.5rem,env(safe-area-inset-top))] pb-2 backdrop-blur">
         <div className="flex items-center justify-between gap-3">
           <Link href="/app" aria-label="Asistente">
-            <Logo compact />
+            <Logo compact className="h-8 w-auto" />
           </Link>
           {memberships.length > 1 ? (
             <WorkshopSwitcher

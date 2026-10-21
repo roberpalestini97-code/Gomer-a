@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <main className="mx-auto flex min-h-dvh max-w-3xl flex-col px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-10">
       <header className="flex items-center justify-between py-3">
-        <Logo />
+        <Logo className="h-10 w-auto" />
         <Link href="/login" className="btn-ghost">
           Entrar
         </Link>

@@ -1,6 +1,8 @@
-# Neumáticos IA
+# GomerIA.app
 
 Asistente por voz para talleres. Inspirado en el caso de «Paco el mecánico» del podcast *Cómo reinventarte con IA empezando desde cero* (min. 15:40–17:40): un taller pequeño, sin ERP ni CRM, cuyos mecánicos preguntan al móvil qué neumático montar.
+
+> Marca, logotipos e iconos en [`public/brand/`](public/brand/README.md) · [vista general del kit](public/brand/brand-kit.png).
 
 - **Asistente por voz**: «me ha entrado un Audi A3 del 2018». Deduce la medida, busca en tu catálogo y recomienda neumáticos con precio y stock.
 - **Stock en vivo**: el dueño suma/resta desde el móvil y todo el taller lo ve al instante (Supabase Realtime).
