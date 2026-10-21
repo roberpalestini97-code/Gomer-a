@@ -11,7 +11,7 @@ export function WorkshopSwitcher({ activeId, options }: { activeId: string; opti
         name="workshopId"
         defaultValue={activeId}
         aria-label="Taller activo"
-        className="input py-1.5 text-sm font-semibold"
+        className="input min-w-0 py-1.5 text-sm font-semibold"
         onChange={() => formRef.current?.requestSubmit()}
       >
         {options.map((o) => (

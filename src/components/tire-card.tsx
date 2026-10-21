@@ -6,10 +6,22 @@ import { buildOrderMessage, buildWhatsAppLink } from "@/lib/whatsapp";
 
 export function StockBadge({ stock }: { stock: number }) {
   if (stock <= 0)
-    return <span className="rounded-full bg-danger/15 px-2.5 py-1 text-xs font-bold text-danger uppercase">Sin stock</span>;
+    return (
+      <span className="shrink-0 rounded-full bg-danger/15 px-2.5 py-1 text-xs font-bold text-danger uppercase">
+        Sin stock
+      </span>
+    );
   if (stock < 4)
-    return <span className="rounded-full bg-warn/15 px-2.5 py-1 text-xs font-bold text-warn uppercase">Quedan {stock}</span>;
-  return <span className="rounded-full bg-ok/15 px-2.5 py-1 text-xs font-bold text-ok uppercase">{stock} en stock</span>;
+    return (
+      <span className="shrink-0 rounded-full bg-warn/15 px-2.5 py-1 text-xs font-bold text-warn uppercase">
+        Quedan {stock}
+      </span>
+    );
+  return (
+    <span className="shrink-0 rounded-full bg-ok/15 px-2.5 py-1 text-xs font-bold text-ok uppercase">
+      {stock} en stock
+    </span>
+  );
 }
 
 export function TireCard({
@@ -64,9 +76,9 @@ export function TireCard({
         <p className="font-display shrink-0 text-2xl font-extrabold">{formatPrice(Number(tire.price))}</p>
       </div>
       <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 items-center gap-2">
           <StockBadge stock={tire.stock} />
-          {tire.supplier?.name && <span className="text-xs text-ink-soft">{tire.supplier.name}</span>}
+          {tire.supplier?.name && <span className="truncate text-xs text-ink-soft">{tire.supplier.name}</span>}
         </div>
         {waLink && (
           <a

@@ -47,7 +47,7 @@ export function CatalogManager({ tires, suppliers, welcome }: { tires: Tire[]; s
           <h1 className="font-display text-3xl font-extrabold uppercase">Catálogo</h1>
           <p className="text-sm text-ink-soft">{tires.length} neumáticos · la base que consulta el asistente</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button type="button" className="btn-ghost" onClick={() => setMode({ kind: "import" })}>
             Importar CSV/Excel
           </button>
@@ -104,16 +104,20 @@ export function CatalogManager({ tires, suppliers, welcome }: { tires: Tire[]; s
                 <span className="size-tag">{formatTireSize(t)}</span>{" "}
                 <span className="font-semibold">{t.brand}</span> <span className="text-ink-soft">{t.model}</span>
               </p>
-              <p className="text-xs text-ink-soft">
+              <p className="break-words text-xs text-ink-soft">
                 {t.sku ?? "sin ref."} · {formatPrice(Number(t.price))} · stock {t.stock} · {t.season}
               </p>
             </div>
-            <button type="button" className="btn-ghost px-3 py-1.5 text-xs" onClick={() => setMode({ kind: "edit", tire: t })}>
+            <button
+              type="button"
+              className="btn-ghost shrink-0 px-3 py-1.5 text-xs"
+              onClick={() => setMode({ kind: "edit", tire: t })}
+            >
               Editar
             </button>
             <button
               type="button"
-              className="btn-danger px-3 py-1.5 text-xs"
+              className="btn-danger shrink-0 px-3 py-1.5 text-xs"
               onClick={() => {
                 if (!confirm(`¿Borrar ${t.brand} ${formatTireSize(t)}?`)) return;
                 startDelete(async () => {
@@ -139,7 +143,7 @@ function TireForm({ tire, suppliers, onDone }: { tire: Tire | null; suppliers: S
   }, [state, onDone]);
 
   const field = (name: keyof Tire, label: string, props: React.InputHTMLAttributes<HTMLInputElement> = {}) => (
-    <div>
+    <div className="min-w-0">
       <label htmlFor={name} className="label">
         {label}
       </label>
@@ -160,10 +164,10 @@ function TireForm({ tire, suppliers, onDone }: { tire: Tire | null; suppliers: S
         {field("brand", "Marca", { required: true, maxLength: 80 })}
         {field("model", "Modelo", { maxLength: 120 })}
       </div>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {field("load_index", "Carga", { type: "number", min: 0, max: 200, inputMode: "numeric" })}
         {field("speed_rating", "Velocidad", { maxLength: 3 })}
-        <div>
+        <div className="col-span-2 min-w-0 sm:col-span-1">
           <label htmlFor="season" className="label">
             Temporada
           </label>
@@ -174,10 +178,12 @@ function TireForm({ tire, suppliers, onDone }: { tire: Tire | null; suppliers: S
           </select>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {field("price", "Precio €", { type: "number", min: 0, step: 0.01, inputMode: "decimal", required: true })}
         {field("stock", "Stock", { type: "number", min: 0, inputMode: "numeric", required: true })}
-        {field("sku", "Referencia", { maxLength: 80 })}
+        <div className="col-span-2 min-w-0 sm:col-span-1">
+          {field("sku", "Referencia", { maxLength: 80 })}
+        </div>
       </div>
       <div>
         <label htmlFor="supplier_id" className="label">

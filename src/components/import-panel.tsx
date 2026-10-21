@@ -71,9 +71,9 @@ export function ImportPanel({ suppliers, onDone }: { suppliers: Supplier[]; onDo
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between gap-3">
-        <h1 className="font-display text-3xl font-extrabold uppercase">Importar catálogo</h1>
-        <button type="button" className="btn-ghost" onClick={() => onDone()}>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="font-display text-2xl font-extrabold uppercase sm:text-3xl">Importar catálogo</h1>
+        <button type="button" className="btn-ghost shrink-0" onClick={() => onDone()}>
           Volver
         </button>
       </div>
@@ -104,7 +104,7 @@ export function ImportPanel({ suppliers, onDone }: { suppliers: Supplier[]; onDo
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
               {IMPORT_FIELDS.map((f) => (
-                <div key={f.key}>
+                <div key={f.key} className="min-w-0">
                   <label className="label" htmlFor={`map-${f.key}`}>
                     {f.label}
                   </label>
@@ -149,7 +149,7 @@ export function ImportPanel({ suppliers, onDone }: { suppliers: Supplier[]; onDo
             </p>
             <ul className="space-y-1 text-sm">
               {valid.slice(0, 5).map((r) => (
-                <li key={r.row}>
+                <li key={r.row} className="break-words">
                   <span className="size-tag">{formatTireSize(r.tire!)}</span> {r.tire!.brand} {r.tire!.model} ·{" "}
                   {formatPrice(r.tire!.price)} · stock {r.tire!.stock}
                 </li>
@@ -160,7 +160,7 @@ export function ImportPanel({ suppliers, onDone }: { suppliers: Supplier[]; onDo
                 <summary className="cursor-pointer">Ver errores</summary>
                 <ul className="mt-1 space-y-0.5">
                   {invalid.slice(0, 30).map((r) => (
-                    <li key={r.row}>
+                    <li key={r.row} className="break-words">
                       Fila {r.row}: {r.error}
                     </li>
                   ))}

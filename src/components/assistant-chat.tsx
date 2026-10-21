@@ -187,19 +187,25 @@ export function AssistantChat({
 
         {turns.map((t) =>
           t.role === "user" ? (
-            <p key={t.id} className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-md bg-ink px-4 py-2.5 text-bg">
+            <p
+              key={t.id}
+              className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-md bg-ink px-4 py-2.5 break-words text-bg"
+            >
               {t.content}
             </p>
           ) : (
             <div key={t.id} className="space-y-3" data-testid="assistant-turn">
               {(t.content || t.status) && (
                 <div className="max-w-[92%] rounded-2xl rounded-bl-md border border-line bg-surface px-4 py-3">
-                  {t.content && <p className="whitespace-pre-line">{t.content}</p>}
+                  {t.content && <p className="whitespace-pre-line break-words">{t.content}</p>}
                   {t.status && <p className="animate-pulse text-sm text-ink-soft">{t.status}</p>}
                 </div>
               )}
               {t.error && (
-                <p role="alert" className="rounded-xl border border-danger/40 bg-danger/10 px-3 py-2 text-sm text-danger">
+                <p
+                  role="alert"
+                  className="rounded-xl border border-danger/40 bg-danger/10 px-3 py-2 text-sm break-words text-danger"
+                >
                   {t.error}
                 </p>
               )}
@@ -248,15 +254,15 @@ export function AssistantChat({
             placeholder={speech.supported ? "O escribe aquí…" : "Escribe el coche o la medida…"}
             aria-label="Consulta"
             maxLength={2000}
-            className="input h-14"
+            className="input h-14 min-w-0 flex-1"
             disabled={busy}
           />
           {busy ? (
-            <button type="button" onClick={() => abortRef.current?.abort()} className="btn-ghost h-14">
+            <button type="button" onClick={() => abortRef.current?.abort()} className="btn-ghost h-14 shrink-0">
               Parar
             </button>
           ) : (
-            <button type="submit" disabled={!input.trim()} className="btn-primary h-14">
+            <button type="submit" disabled={!input.trim()} className="btn-primary h-14 shrink-0">
               Enviar
             </button>
           )}

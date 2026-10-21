@@ -33,14 +33,14 @@ export default async function HistoryPage() {
         <ul className="space-y-2">
           {data!.map((log) => (
             <li key={log.id} className="card space-y-1 p-4">
-              <p className="text-xs text-ink-soft">
+              <p className="break-words text-xs text-ink-soft">
                 {fmt.format(new Date(log.created_at))}
                 {(log.tools_used as string[]).length > 0 &&
                   ` · ${[...new Set(log.tools_used as string[])].map((t) => TOOL_LABEL[t] ?? t).join(", ")}`}
               </p>
-              <p className="font-semibold">{log.query}</p>
-              {log.answer && <p className="text-sm whitespace-pre-line text-ink-soft">{log.answer}</p>}
-              {log.error && <p className="text-sm text-danger">{log.error}</p>}
+              <p className="break-words font-semibold">{log.query}</p>
+              {log.answer && <p className="text-sm whitespace-pre-line break-words text-ink-soft">{log.answer}</p>}
+              {log.error && <p className="text-sm break-words text-danger">{log.error}</p>}
             </li>
           ))}
         </ul>

@@ -1,66 +1,38 @@
 @import "tailwindcss";
 
-/* Taller: asfalto, goma y una señal ámbar de seguridad. */
+/* Taller: asfalto, goma y una señal ámbar de seguridad.
+   La app es oscura por defecto para que el amarillo de marca funcione como
+   acento principal. El kit conserva versiones claras para piezas externas. */
 :root {
-  --bg: #f4f2ee;
-  --surface: #ffffff;
-  --surface-2: #ebe8e2;
-  --ink: #17191c;
-  --ink-soft: #5b6068;
-  --line: #d9d5cd;
-  --accent: #f2a900;
+  color-scheme: dark;
+  --bg: #121416;
+  --surface: #1b1e22;
+  --surface-2: #24282d;
+  --ink: #eceae6;
+  --ink-soft: #a2a7ae;
+  --line: #33383f;
+  --accent: #ffb81c;
   --accent-ink: #1a1400;
   /* Marca GomerIA.app */
   --brand: #ffd400;
   --brand-ink: #111111;
-  --logo-mark: #111111;
-  --logo-word: #111111;
-  --logo-accent: #111111;
-  --logo-pill: #111111;
-  --logo-pill-text: #ffd400;
-  --ok: #1f8a4c;
-  --warn: #b85c00;
-  --danger: #c62828;
-  --whatsapp: #1fa855;
+  --logo-mark: #ffd400;
+  --logo-word: #ffffff;
+  --logo-accent: #ffd400;
+  --logo-pill: #ffd400;
+  --logo-pill-text: #111111;
+  --ok: #3ccf7d;
+  --warn: #ff9f43;
+  --danger: #ff6b6b;
+  --whatsapp: #2bd06b;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #121416;
-    --surface: #1b1e22;
-    --surface-2: #24282d;
-    --ink: #eceae6;
-    --ink-soft: #a2a7ae;
-    --line: #33383f;
-    --accent: #ffb81c;
-    --accent-ink: #1a1400;
-    --logo-mark: #ffd400;
-    --logo-word: #ffffff;
-    --logo-accent: #ffd400;
-    --logo-pill: #ffd400;
-    --logo-pill-text: #111111;
-    --ok: #3ccf7d;
-    --warn: #ff9f43;
-    --danger: #ff6b6b;
-    --whatsapp: #2bd06b;
-  }
-}
-
-/* El isotipo alterna entre color y monocromo según el tema. */
+/* `auto` usa el isotipo a color; `mono` sigue disponible para casos especiales. */
 .logo-mark-color {
-  display: none;
-}
-.logo-mark-mono {
   display: inline;
 }
-
-@media (prefers-color-scheme: dark) {
-  .logo-mark-color {
-    display: inline;
-  }
-  .logo-mark-mono {
-    display: none;
-  }
+.logo-mark-mono {
+  display: none;
 }
 
 @theme inline {
@@ -84,6 +56,7 @@
 }
 
 html {
+  background: var(--bg);
   -webkit-tap-highlight-color: transparent;
 }
 

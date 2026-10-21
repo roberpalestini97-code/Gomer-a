@@ -11,7 +11,7 @@ separado, y del logotipo **GomerIA.app**.
 | Amarillo de marca | Amarillo | `#FFD400` |
 | Negro de marca | Negro | `#111111` |
 | Blanco (sobre negro) | Blanco | `#FFFFFF` |
-| Fondo claro de la app | Crema | `#F4F2EE` |
+| Fondo claro del kit | Crema | `#F4F2EE` |
 
 Tipografía del logotipo: **Montserrat ExtraBold**, convertida a trazados (no hace
 falta instalar la fuente para usarlo).
@@ -75,9 +75,10 @@ falta instalar la fuente para usarlo).
 ## Uso en la app
 
 El componente `src/components/logo.tsx` dibuja el logo en SVG con identificadores
-únicos por instancia (`useId`). El isotipo alterna solo con el tema del sistema:
-color sobre fondo oscuro y monocromo sobre fondo claro. Los colores del logotipo
-se controlan con las variables `--logo-*` de `globals.css`.
+únicos por instancia (`useId`). La app usa siempre el tema oscuro y el isotipo a
+color; las versiones claras del kit quedan para piezas externas sobre fondos
+claros. Los colores del logotipo se controlan con las variables `--logo-*` de
+`globals.css`.
 
 ```tsx
 import { Logo } from "@/components/logo";

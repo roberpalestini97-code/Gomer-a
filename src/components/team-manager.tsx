@@ -66,7 +66,7 @@ export function TeamManager({
               {m.user_id !== currentUserId && (
                 <button
                   type="button"
-                  className="btn-danger px-3 py-1.5 text-xs"
+                  className="btn-danger shrink-0 px-3 py-1.5 text-xs"
                   onClick={() => {
                     if (!confirm(`¿Quitar a ${m.email ?? "este miembro"} del taller?`)) return;
                     startTransition(async () => setError((await removeMember(m.user_id)).error ?? null));
@@ -88,7 +88,7 @@ export function TeamManager({
               const expired = new Date(i.expires_at) < new Date();
               return (
                 <li key={i.id} className="card space-y-2 p-4">
-                  <p className="font-semibold">
+                  <p className="break-words font-semibold">
                     {i.email} <span className="text-sm font-normal text-ink-soft">· {ROLE[i.role]}</span>
                     {expired && <span className="ml-2 text-xs font-bold text-danger uppercase">caducada</span>}
                   </p>
@@ -126,7 +126,14 @@ export function TeamManager({
         <h2 className="font-display text-xl font-bold uppercase">Invitar</h2>
         <p className="text-sm text-ink-soft">Se genera un enlace válido 7 días para ese email.</p>
         <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
-          <input name="email" type="email" required placeholder="mecanico@taller.com" aria-label="Email" className="input" />
+          <input
+            name="email"
+            type="email"
+            required
+            placeholder="mecanico@taller.com"
+            aria-label="Email"
+            className="input min-w-0"
+          />
           <select name="role" defaultValue="mechanic" aria-label="Rol" className="input">
             <option value="mechanic">Mecánico</option>
             <option value="owner">Dueño</option>

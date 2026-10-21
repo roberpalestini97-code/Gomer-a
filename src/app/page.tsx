@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Logo } from "@/components/logo";
+import { ResponsiveLogo } from "@/components/logo";
 
 const STEPS = [
   {
@@ -19,9 +19,9 @@ const STEPS = [
 export default function Home() {
   return (
     <main className="mx-auto flex min-h-dvh max-w-3xl flex-col px-4 pt-[max(1rem,env(safe-area-inset-top))] pb-10">
-      <header className="flex items-center justify-between py-3">
-        <Logo className="h-10 w-auto" />
-        <Link href="/login" className="btn-ghost">
+      <header className="flex items-center justify-between gap-3 py-3">
+        <ResponsiveLogo className="h-10 w-auto" compactClassName="h-10 w-auto" />
+        <Link href="/login" className="btn-ghost shrink-0">
           Entrar
         </Link>
       </header>

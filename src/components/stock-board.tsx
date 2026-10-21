@@ -78,7 +78,7 @@ export function StockBoard({
           aria-label="Buscar en el stock"
           className="input"
         />
-        <div className="flex gap-2" role="group" aria-label="Filtro">
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Filtro">
           {(
             [
               ["all", "Todo"],
@@ -91,7 +91,7 @@ export function StockBoard({
               type="button"
               onClick={() => setFilter(value)}
               aria-pressed={filter === value}
-              className={`rounded-full px-3.5 py-1.5 text-sm font-semibold ${
+              className={`shrink-0 rounded-full px-3.5 py-1.5 text-sm font-semibold ${
                 filter === value ? "bg-ink text-bg" : "border border-line bg-surface text-ink-soft"
               }`}
             >

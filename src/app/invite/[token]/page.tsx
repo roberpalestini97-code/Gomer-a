@@ -45,7 +45,7 @@ export default async function InvitePage({ params }: { params: Promise<{ token: 
   return (
     <AuthShell title="Te han invitado" subtitle={`Únete a ${invite.workshop_name} como ${roleLabel}.`}>
       <p className="mb-4 text-sm text-ink-soft">
-        Invitación para <strong className="text-ink">{invite.email}</strong>.
+        Invitación para <strong className="break-words text-ink">{invite.email}</strong>.
       </p>
       {user ? (
         user.email?.toLowerCase() === invite.email.toLowerCase() ? (

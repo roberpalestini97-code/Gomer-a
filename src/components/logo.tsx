@@ -29,8 +29,8 @@ type LogoProps = {
   badge?: boolean;
   className?: string;
   /**
-   * Fuerza una versión del isotipo. Por defecto alterna con el tema:
-   * color sobre fondo oscuro y monocromo sobre fondo claro.
+   * `auto` usa el isotipo a color (la app es oscura); `mono` fuerza la
+   * versión de un solo color para piezas especiales.
    */
   variant?: "auto" | "color" | "mono";
 };
@@ -454,7 +454,7 @@ function MarkMono({ uid, themed }: { uid: string; themed: boolean }) {
 
 /**
  * Logotipo de GomerIA.app, dibujado como SVG (trazados, sin depender de fuentes).
- * El isotipo cambia de versión con el tema; el logotipo usa las variables --logo-*.
+ * El isotipo usa la versión a color por defecto; el logotipo usa las variables --logo-*.
  */
 export function Logo({
   compact = false,
@@ -515,5 +515,34 @@ export function Logo({
         </g>
       )}
     </svg>
+  );
+}
+
+/**
+ * Lockup responsive: en móvil solo el isotipo; a partir de `sm`, isotipo +
+ * logotipo + pastilla `.app`. Ambos SVG se renderizan, pero CSS oculta uno
+ * para evitar saltos de hidratación o layout shift.
+ */
+export function ResponsiveLogo({
+  className = "h-10 w-auto",
+  compactClassName = "h-10 w-auto",
+  badge = true,
+}: {
+  /** Tamaño del logotipo completo (escritorio/tablet). */
+  className?: string;
+  /** Tamaño del isotipo (móvil). */
+  compactClassName?: string;
+  /** Muestra la pastilla `.app` en el logotipo completo. */
+  badge?: boolean;
+}) {
+  return (
+    <>
+      <span className="inline-flex sm:hidden">
+        <Logo compact className={compactClassName} />
+      </span>
+      <span className="hidden sm:inline-flex">
+        <Logo className={className} badge={badge} />
+      </span>
+    </>
   );
 }

@@ -24,14 +24,14 @@ export function SupplierManager({ suppliers }: { suppliers: Supplier[] }) {
         {suppliers.map((s) => (
           <li key={s.id} className="card flex items-center gap-3 p-4">
             <div className="min-w-0 flex-1">
-              <p className="font-semibold">{s.name}</p>
-              <p className="text-sm text-ink-soft">
+              <p className="break-words font-semibold">{s.name}</p>
+              <p className="break-words text-sm text-ink-soft">
                 {s.sales_rep_name ?? "Sin comercial"} · {s.whatsapp_phone ?? "sin WhatsApp"}
               </p>
             </div>
             <button
               type="button"
-              className="btn-ghost px-3 py-1.5 text-xs"
+              className="btn-ghost shrink-0 px-3 py-1.5 text-xs"
               onClick={() => {
                 setEditing(s);
                 setFormKey((k) => k + 1);
@@ -41,7 +41,7 @@ export function SupplierManager({ suppliers }: { suppliers: Supplier[] }) {
             </button>
             <button
               type="button"
-              className="btn-danger px-3 py-1.5 text-xs"
+              className="btn-danger shrink-0 px-3 py-1.5 text-xs"
               onClick={() => {
                 if (!confirm(`¿Borrar ${s.name}? Sus neumáticos quedarán sin proveedor.`)) return;
                 startTransition(async () => {
@@ -74,7 +74,9 @@ function SupplierForm({ supplier, onCancel }: { supplier: Supplier | null; onCan
   const [state, action, pending] = useActionState(saveSupplier, undefined);
   return (
     <form action={action} className="card space-y-3 p-4">
-      <h2 className="font-display text-xl font-bold uppercase">{supplier ? `Editar ${supplier.name}` : "Nuevo proveedor"}</h2>
+      <h2 className="font-display break-words text-xl font-bold uppercase">
+        {supplier ? `Editar ${supplier.name}` : "Nuevo proveedor"}
+      </h2>
       {supplier && <input type="hidden" name="id" value={supplier.id} />}
       <div>
         <label htmlFor="name" className="label">
@@ -83,13 +85,13 @@ function SupplierForm({ supplier, onCancel }: { supplier: Supplier | null; onCan
         <input id="name" name="name" required maxLength={120} defaultValue={supplier?.name ?? ""} className="input" />
       </div>
       <div className="grid gap-3 sm:grid-cols-2">
-        <div>
+        <div className="min-w-0">
           <label htmlFor="sales_rep_name" className="label">
             Comercial
           </label>
           <input id="sales_rep_name" name="sales_rep_name" maxLength={120} defaultValue={supplier?.sales_rep_name ?? ""} className="input" />
         </div>
-        <div>
+        <div className="min-w-0">
           <label htmlFor="whatsapp_phone" className="label">
             WhatsApp (con prefijo)
           </label>
